@@ -26,8 +26,24 @@ let movies = [
 
 // Fetch all movies
 app.get("/api/movies", (_req, res) => {
+    console.log("Fetch all movies");
+
     res.json(movies);
 });
+
+// Fetch movie by id
+app.get("/api/movies/:id", (req, res) => {
+    console.log("Fetch movie by id");
+    
+    const movieId = req.params.id;
+    const movie = movies.filter(movie => movie.id === movieId);
+
+    if (movie.length > 0) {
+        res.json(movie);
+    } else {
+        res.status(404).end();
+    }
+})
 
 app.listen(port, () => {
    console.log(`Server is running on port ${port}.`);
