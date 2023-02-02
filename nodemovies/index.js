@@ -1,7 +1,10 @@
 import express from "express";
+import bodyParser from "body-parser";
 
 const app = express();
 const port = 3000;
+
+app.use(bodyParser.json());
 
 let movies = [
     {
@@ -26,15 +29,15 @@ let movies = [
 
 // Fetch all movies
 app.get("/api/movies", (_req, res) => {
-    console.log("Fetch all movies");
+    console.log("GET /api/movies");
 
     res.json(movies);
 });
 
 // Fetch movie by id
 app.get("/api/movies/:id", (req, res) => {
-    console.log("Fetch movie by id");
-    
+    console.log("GET /api/movies/:id");
+
     const movieId = req.params.id;
     const movie = movies.filter(movie => movie.id === movieId);
 
@@ -43,7 +46,51 @@ app.get("/api/movies/:id", (req, res) => {
     } else {
         res.status(404).end();
     }
-})
+});
+
+// Create new movie
+app.post("/api/movies", (req, res) => {
+    console.log("POST /api/movies");
+    console.log(req.body);
+
+    const newMovie = {
+        "id": Date.now(),
+        ...req.body
+    };
+
+    movies = [...movies, newMovie];
+
+    res.json(newMovie);
+    
+});
+
+// Delete movie
+app.delete("/api/movies/:id", (req, res) => {
+    console.log("DELETE /api/movies/:id");
+
+    const id = req.params.id;
+
+    movies = movies.filter(movie => movie.id !== id);
+    res.status(204).end();
+});
+
+// Update movie
+app.put("/api/movies/:id", (req, res) => {
+    console.log("PUT /api/movies/:id");
+
+    const id = req.params.id;
+    const updatedMovie = {
+        "id": id,
+        ...req.body
+    };
+
+    // index of movie to update
+    const index = movies.findIndex(movie => movie.id === id);
+
+    movies.splice(index, 1, updatedMovie);
+
+    res.json(updatedMovie);
+});
 
 app.listen(port, () => {
    console.log(`Server is running on port ${port}.`);
