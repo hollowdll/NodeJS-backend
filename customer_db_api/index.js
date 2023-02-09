@@ -7,14 +7,11 @@ app.use(bodyParser.json());
 
 const port = 3000;
 
+// API Endpoints
 app.get("/api/customers", query.getAllCustomers);
-
 app.get("/api/customers/:id", query.getCustomerById);
-
 app.post("/api/customers", query.addCustomer);
-
 app.delete("/api/customers/:id", query.deleteCustomer);
-
 app.put("/api/customers/:id", query.updateCustomer);
 
 app.listen(port, () => {
