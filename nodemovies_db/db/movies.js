@@ -37,7 +37,62 @@ const getMovieById = (req, res) => {
     })
 }
 
+// Add new movies
+const addMovie = (req, res) => {
+    const newMovie = req.body;
+
+    const query = {
+        text: 'INSERT INTO movies (title, director, year) VALUES ($1, $2, $3)',
+        values: [newMovie.title, newMovie.director, newMovie.year],
+    }
+
+    db.query(query, (err, _res) => {
+        if (err) {
+          return console.error('Error executing query', err.stack)
+        }
+    });
+    
+    res.json(newMovie);
+}
+
+// Delete movie
+const deleteMovie = (req, res) => {
+    const query = {
+        text: 'DELETE FROM movies WHERE id = $1',
+        values: [req.params.id],
+    }
+
+    db.query(query, (err, _res) => {
+        if (err) {
+          return console.error('Error executing query', err.stack)
+        }
+    });
+    
+    res.status(204).end();
+}
+
+// Update movie
+const updateMovie = (req, res) => {
+    const editedMovie = req.body;
+  
+    const query = {
+      text: 'UPDATE movies SET title=$1, director=$2, year=$3 WHERE id = $4',
+      values: [editedMovie.title, editedMovie.director, editedMovie.year, req.params.id],
+    }
+  
+    db.query(query, (err, _res) => {
+      if (err) {
+        return console.error('Error executing query', err.stack)
+      }
+    });
+  
+    res.json(editedMovie);
+}
+
 module.exports = {
     getAllMovies,
     getMovieById,
+    addMovie,
+    deleteMovie,
+    updateMovie,
 }
