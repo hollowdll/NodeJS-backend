@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const query = require("./db/movies");
+const { assert } = require("chai");
 
 const app = express();
 app.use(bodyParser.json());
@@ -16,3 +17,5 @@ app.put("/api/movies/:id", query.updateMovie);
 app.listen(port, () => {
     console.log(`Server is running on port ${port}.`);
 });
+
+module.exports = app;
