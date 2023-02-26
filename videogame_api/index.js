@@ -60,14 +60,14 @@ app.post("/api/games", (req, res) => {
 
     games = [...games, game];
 
-    res.json(game);
+    res.status(201).json(game);
 });
 
 // Delete by id
 app.delete("/api/games/:id", (req, res) => {
     const id = req.params.id;
 
-    games = games.filter(game => game.id !== id);
+    games = games.filter(game => game.id != id);
     
     res.status(204).end();
 });
@@ -80,7 +80,8 @@ app.put("/api/games/:id", (req, res) => {
         ...req.body
     };
 
-    const index = games.findIndex(game => game.id === id);
+    const index = games.findIndex(game => game.id == id);
+    console.log(index);
     games.splice(index, 1, updatedGame);
 
     res.json(updatedGame);
