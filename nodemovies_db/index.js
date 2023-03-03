@@ -1,17 +1,23 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const query = require("./db/movies");
+const auth = require("./services/authenticate");
+require("dotenv").config();
 
 const app = express();
 app.use(bodyParser.json());
 
 const port = 3000;
 
-app.get("/api/movies", query.getAllMovies);
-app.get("/api/movies/:id", query.getMovieById);
-app.post("/api/movies", query.addMovie);
-app.delete("/api/movies/:id", query.deleteMovie);
-app.put("/api/movies/:id", query.updateMovie);
+// REST API routes
+app.get("/api/movies", auth.authenticate, query.getAllMovies);
+app.get("/api/movies/:id", auth.authenticate, query.getMovieById);
+app.post("/api/movies", auth.authenticate, query.addMovie);
+app.delete("/api/movies/:id", auth.authenticate, query.deleteMovie);
+app.put("/api/movies/:id", auth.authenticate, query.updateMovie);
+
+// Login route
+app.post("/api/login", auth.login);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}.`);
