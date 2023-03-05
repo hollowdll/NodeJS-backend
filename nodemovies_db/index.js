@@ -1,8 +1,8 @@
+require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const query = require("./db/movies");
 const auth = require("./services/authenticate");
-require("dotenv").config();
 
 const app = express();
 app.use(bodyParser.json());
@@ -17,7 +17,7 @@ app.delete("/api/movies/:id", auth.authenticate, query.deleteMovie);
 app.put("/api/movies/:id", auth.authenticate, query.updateMovie);
 
 // Login route
-app.post("/api/login", auth.login);
+app.post("/login", auth.login);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}.`);

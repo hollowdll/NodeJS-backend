@@ -7,7 +7,7 @@ const login = (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
 
-  const loginUser = user.getUserByEmail(email, async user => {
+  user.getUserByEmail(email, async (user) => {
     if (user.length > 0) {
       const hashedPassword = user[0].password;
       const token = jwt.sign(

@@ -8,7 +8,7 @@ const getUserByEmail = (email, next) => {
 
   db.query(query, (err, result) => {
     if (err) {
-      return console.error('Error executing query', err.stack)
+      return console.error('Error executing query for users', err.stack)
     }
     else {
       next(result.rows);
