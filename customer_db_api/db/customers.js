@@ -10,7 +10,7 @@ const getAllCustomers = (req, res) => {
         } else {
             res.json(result.rows);
         }
-    })
+    });
 }
 
 // Get by id
@@ -34,7 +34,7 @@ const getCustomerById = (req, res) => {
                 res.status(404).end();
             }
         }
-    })
+    });
 }
 
 // Add new
@@ -89,7 +89,7 @@ const updateCustomer = (req, res) => {
             editedCustomer.phone,
             req.params.id,
         ],
-    };
+    }
 
     db.query(query, (err, _res) => {
         if (err) {
