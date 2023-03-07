@@ -8,6 +8,7 @@ const user = require("./db/users");
 const app = express();
 app.use(bodyParser.json());
 
+// Create user table and demo user to database
 user.createUserTable();
 user.createAdminUser();
 
@@ -23,7 +24,7 @@ app.post("/login", auth.login);
 
 const port = 3000;
 app.listen(port, () => {
-    console.log(`Server is running on port ${port}.`);
+  console.log(`Server is running on port ${port}.`);
 });
 
 module.exports = app;
