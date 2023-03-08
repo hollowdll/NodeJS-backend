@@ -3,11 +3,14 @@ html
   head
     title Movies
   body
-    table
-      tbody
-        h1 Movies
-        each movie in movies
-          tr
-            td #{movie.title}
-            td #{movie.director}
-            td #{movie.year}
+    h1 Movies
+    div
+      a(href="/addmovie") Add movie
+    div
+      table
+        tbody
+          each movie in movies
+            tr
+              td #{movie.title}
+              td #{movie.director}
+              td #{movie.year}
