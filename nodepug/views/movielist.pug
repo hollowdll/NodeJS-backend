@@ -1,0 +1,13 @@
+doctype html
+html
+  head
+    title Movies
+  body
+    table
+      tbody
+        h1 Movies
+        each movie in movies
+          tr
+            td #{movie.title}
+            td #{movie.director}
+            td #{movie.year}
