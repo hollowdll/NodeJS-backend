@@ -36,7 +36,7 @@ app.get("/hello", (_req, res) => {
   });
 });
 
-app.get("/movies", (_req, res) => {
+app.get("/", (_req, res) => {
   res.render("movielist", { movies });
 });
 
@@ -52,7 +52,7 @@ app.post("/addmovie", (req, res) => {
     year: req.body.year,
   };
   movies = [...movies, newMovie];
-  res.redirect("/movies");
+  res.redirect("/");
 });
 
 app.listen(port, () => {
